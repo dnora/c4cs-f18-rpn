@@ -1,22 +1,34 @@
 #!/usr/bin/env python3
+import operator
+
+op = {
+    '+': operator.add,
+    '-': operator.sub,
+    '*': operator.mul,
+    '/': operator.truediv,
+}
 
 def calculate(arg):
-    stack = []
-    tokens = arg.split()
+    #stack for calculator
+    stack = arg.split()
     
-#stack for calculator
-    #tokenize input
     #process tokens
-    for token in tokens:
+    while len(stack) > 1:
+        token = stack.pop()
         try:
             value = int(token)
             stack.append(value)
         except ValueError:
-            val1 = stack.pop()
             val2 = stack.pop()
-            result = val1 + val2
-            stack.append(result)
-            return stack[0]
+            val1 = stack.pop()
+
+            # Look up function in op table
+            func = op[token]
+            result = func(val1, val2)
+            
+            stack.append(str(result))
+
+    return int(stack[0])
     pass
 
 def main():
