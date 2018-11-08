@@ -5,7 +5,6 @@ python:
 - "3.6"
 - "pypy3.5"
 install:
-- pip install -r Makefile
-- pip install .
+- pip install -r requirements.txt
 script:
 - test_rpn
